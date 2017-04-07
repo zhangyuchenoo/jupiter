@@ -1,0 +1,15 @@
+
+buildscript {
+  repositories {
+	maven { url crawlerRep }
+    jcenter()
+  }
+  dependencies {
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+  }
+}
+
+configurations.all {
+  resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+  resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
