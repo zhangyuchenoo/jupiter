@@ -1,15 +1,122 @@
-
 buildscript {
-  repositories {
-	maven { url crawlerRep }
-    jcenter()
-  }
-  dependencies {
-    classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-  }
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+	}
 }
 
-configurations.all {
-  resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
-  resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+//加上后边的配置 子项目就生效了
+configure(subprojects) { project ->
+	apply from: file("${rootProject.rootDir}/gradle/shared.gradle")
+  
+	repositories {
+	  jcenter()
+	}
+  
+	sourceCompatibility = javaVersion
+	targetCompatibility = javaVersion
+  
+	group = 'com.jupiter'
+	version = '0.0.1'
+	
+	configurations {
+	 // all*.exclude group: 'org.slf4j', module: 'jcl-over-slf4j'
+	  all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+	  all*.exclude group: 'org.apache.tomcat', module: 'tomcat-jdbc'
+	  all*.exclude group: 'javax.transaction', module: 'javax.transaction-api'
+	}
+  
+	eclipse.classpath {
+	  containers.remove 'org.eclipse.jdt.launching.JRE_CONTAINER'
+	  containers "org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-${javaVersion}"
+	}
+  }
+
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+jar {
+	baseName = 'jupiter-spring-boot'
+	version =  '0.1.0'
+}
+
+repositories {
+	mavenCentral()
+	maven { url crawlerRep }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+configure(subprojects.findAll { it.name.endsWith('main')||it.name.endsWith('service') }) {
+	apply plugin: 'org.springframework.boot'
+	
+	dependencies {
+		provided ("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcat_embed_version}"){
+  			exclude group: 'org.apache.tomcat'
+            exclude group: 'org.apache.tomcat.embed'
+	    }
+		compile ("org.springframework.boot:spring-boot-starter-web:${springBootVersion}"){
+			exclude group : 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+			exclude group : 'org.apache.tomcat.embed', module: 'tomcat-embed-el'
+			exclude group : 'org.apache.tomcat.embed', module: 'tomcat-jdbc'
+		}
+		provided "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
+	    compile "org.springframework.boot:spring-boot:${springBootVersion}"
+	    compile "org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}"
+	    compile "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
+	    compile "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}"
+	   // compile ("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}"){
+		//	exclude group : 'org.apache.tomcat', module: 'tomcat-jdbc'
+		//}
+		provided "org.apache.tomcat:tomcat-jdbc:${tomcat_embed_version}"
+		compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+	
+		
+		compile "org.slf4j:log4j-over-slf4j:${sl4j_version}"
+		compile "org.slf4j:slf4j-api:${sl4j_version}"
+		compile "commons-net:commons-net:${commons_net_version}"
+		compile "commons-io:commons-io:${commons_io_version}"
+		compile "eu.medsea.mimeutil:mime-util:${mime_util_version}"
+		compile "org.slf4j:slf4j-api:${sl4j_version}"
+		compile "org.codehaus.janino:janino:${janino_version}"
+		compile "mysql:mysql-connector-java:${mysql_version}"
+		compile "org.apache.commons:commons-lang3:${commons_lang3_version}"
+		compile "commons-codec:commons-codec:${commons_codec_version}"
+		compile "commons-fileupload:commons-fileupload:${commons_fileupload_version}"
+		compile "com.google.guava:guava:${guava_version}"
+		 
+		compile "org.apache.httpcomponents:httpclient:${httpcomponents_version}"
+		compile "org.apache.httpcomponents:httpclient-cache:${httpcomponents_version}"
+		compile "org.apache.httpcomponents:httpmime:${httpcomponents_version}"
+		compile "org.apache.httpcomponents:fluent-hc:${httpcomponents_version}"
+	
+		compile "com.alibaba:fastjson:${alibaba_fastjson_version}"
+		compile "javax.servlet:jstl"
+		compile "taglibs:standard:${jsp_standard_version}"
+	
+		compile "com.fasterxml.jackson.core:jackson-annotations"
+		compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml"
+		compile "com.fasterxml.jackson.datatype:jackson-datatype-joda"
+		//compile "org.jasypt:jasypt:${jasypt_version}"
+		
+		compile "org.aspectj:aspectjweaver:1.8.6"
+		compile "org.aspectj:aspectjrt:1.8.6"
+		compile "cglib:cglib-nodep:3.1"
+		testCompile("junit:junit")
+		
+		compile "org.slf4j:log4j-over-slf4j:${sl4j_version}"
+		compile "org.slf4j:slf4j-api:${sl4j_version}"
+		compile "org.slf4j:slf4j-api:${sl4j_version}"
+		compile "commons-net:commons-net:${commons_net_version}"
+		compile "commons-io:commons-io:${commons_io_version}"
+	}
+}
+
+subprojects {
+	task allDeps(type: DependencyReportTask) {}
 }
