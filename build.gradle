@@ -52,7 +52,7 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-configure(subprojects.findAll { it.name.endsWith('main')||it.name.endsWith('service') }) {
+configure(subprojects.findAll { it.name.startsWith('jupiter-')}) {
 	apply plugin: 'org.springframework.boot'
 	
 	dependencies {

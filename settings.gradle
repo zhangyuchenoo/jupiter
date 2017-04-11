@@ -18,4 +18,4 @@ include 'services:webservice'
 
 rootProject.name = 'jupiter'
 
-include 'domain','main','service'
+include 'jupiter-domain','jupiter-main','jupiter-service'
