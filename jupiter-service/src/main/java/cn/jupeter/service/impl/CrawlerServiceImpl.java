@@ -1,6 +1,7 @@
 package cn.jupeter.service.impl;
 
 import cn.jupeter.service.CrawlerService;
+import edu.uci.ics.crawler4j.crawler.WebCrawler;
 
 public class CrawlerServiceImpl implements CrawlerService {
 
