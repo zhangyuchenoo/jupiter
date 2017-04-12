@@ -14,7 +14,7 @@ public class GeneratorSqlmap {
 
 		List<String> warnings = new ArrayList<String>();
 		boolean overwrite = true;
-		File configFile = new File("C:\\Users\\zheng.zhang\\git\\cmc\\domain\\src\\test\\resources\\mybatisGeneratorConfig.xml");
+		File configFile = new File("D:\\workspace\\jupiter\\jupiter-domain\\src\\test\\resources\\mybatisGeneratorConfig.xml");
 		ConfigurationParser cp = new ConfigurationParser(warnings);
 		org.mybatis.generator.config.Configuration config = cp.parseConfiguration(configFile);
 		DefaultShellCallback callback = new DefaultShellCallback(overwrite);
