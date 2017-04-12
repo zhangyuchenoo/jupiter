@@ -3,3 +3,5 @@
 *.gradle/*
 *.classpath
 *classpath
+jupiter-main/bin/
+jupiter-service/bin/
