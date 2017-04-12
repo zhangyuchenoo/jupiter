@@ -1,21 +1,22 @@
+spring:
+  profiles: default
 server:
   port: 6082
   
-info:
-  app_name: jupiter-main
-  app_version: 0.0.1
+  info:
+    app_name: jupiter-main
+    app_version: 0.0.1
+foo:
+   name:
+      - 'fool1'
+      - 'fool2'
 
 jupiter: 
-  cache:
+  //cache:
     ##最大2000个
-    maxSize: 2000
+    //maxSize: 2000
     ##超时时间300s
-    ttl: 300
-
-  
-  
-  
-spring:
+    //ttl: 300
   aop:
     proxy-target-class: true
   messages:
