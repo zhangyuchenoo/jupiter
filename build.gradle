@@ -1,6 +1,6 @@
 buildscript {
 	repositories {
-		maven { url 'http://nexus.msfinance.cn/nexus/content/repositories/aliyun/'}
+		maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
 		jcenter()
 	}
 	dependencies {
@@ -13,6 +13,7 @@ configure(subprojects) { project ->
 	apply from: file("${rootProject.rootDir}/gradle/shared.gradle")
   
 	repositories {
+	  maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
 	  jcenter()
 	}
   
@@ -69,11 +70,11 @@ configure(subprojects.findAll { it.name.startsWith('jupiter-')}) {
 		provided "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
 	    compile "org.springframework.boot:spring-boot:${springBootVersion}"
 	    compile "org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}"
-	    //compile "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
-	    //compile "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}"
-	   // compile ("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}"){
-		//	exclude group : 'org.apache.tomcat', module: 'tomcat-jdbc'
-		//}
+	    compile "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
+	    compile "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}"
+	    compile ("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}"){
+			exclude group : 'org.apache.tomcat', module: 'tomcat-jdbc'
+		}
 		provided "org.apache.tomcat:tomcat-jdbc:${tomcat_embed_version}"
 		//compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
 		compile "org.mybatis:mybatis:${mybatis_version}"
