@@ -6,6 +6,9 @@ package com.jupiter.main;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author zheng.zhang
@@ -14,7 +17,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
+@ComponentScan({ "com.jupiter" })
+@EnableConfigurationProperties
 public class Main {
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);

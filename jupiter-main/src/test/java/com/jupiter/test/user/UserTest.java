@@ -6,7 +6,7 @@ package com.jupiter.test.user;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.jupiter.main.Configure;
+import com.jupiter.config.Configure;
 import com.jupiter.test.BaseTestCase;
 
 /**
