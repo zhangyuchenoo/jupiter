@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cn.jupeter.service.conf;
+package com.jupiter.service.config;
 
 import javax.sql.DataSource;
 

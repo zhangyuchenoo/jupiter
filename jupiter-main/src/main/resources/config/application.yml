@@ -20,7 +20,7 @@ jupiter:
     url: jdbc:mysql://localhost:3306/jupiter?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
     type: com.alibaba.druid.pool.DruidDataSource
     username: root
-    password: 
+    password: 123456
     maxActive: 100
     minIdle: 1
     testOnBorrow: false

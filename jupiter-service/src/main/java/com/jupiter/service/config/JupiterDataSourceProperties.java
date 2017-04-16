@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.jupiter.config;
+package com.jupiter.service.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

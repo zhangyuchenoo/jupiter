@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.jupiter.config;
+package com.jupiter.service.config;
 
 import java.util.ArrayList;
 import java.util.List;

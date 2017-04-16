@@ -1,4 +1,4 @@
-package cn.jupeter.service;
+package com.jupiter.service;
 
 public interface CrawlerService {
 	

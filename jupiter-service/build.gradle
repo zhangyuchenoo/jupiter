@@ -8,4 +8,5 @@ repositories {
 
 dependencies{
 	compile "edu.uci.ics:crawler4j:4.4-SNAPSHOT"
+	compile project(":jupiter-domain")
 }

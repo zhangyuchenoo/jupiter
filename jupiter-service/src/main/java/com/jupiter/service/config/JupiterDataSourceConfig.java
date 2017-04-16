@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.jupiter.config;
+package com.jupiter.service.config;
 
 import java.sql.SQLException;
 import java.util.HashMap;

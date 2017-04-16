@@ -6,7 +6,9 @@ package com.jupiter.test.user;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.jupiter.config.Configure;
+import com.jupiter.model.JUser;
+import com.jupiter.service.UserService;
+import com.jupiter.service.config.Configure;
 import com.jupiter.test.BaseTestCase;
 
 /**
@@ -16,13 +18,25 @@ import com.jupiter.test.BaseTestCase;
  */
 public class UserTest extends BaseTestCase {
 
+	//@Autowired
+	//private Configure configure;
 	@Autowired
-	private Configure configure;
+	private UserService userService;
 
 	@Test
 	public void testConfigure() {
-		configure.getfooNames().forEach(word -> {
+		/*configure.getfooNames().forEach(word -> {
 			System.err.println(word);
-		});
+		});*/
+	}
+	
+	@Test
+	public void testSave(){
+		JUser user=new JUser();
+		//user.setId(1l);
+		user.setName("first");
+		user.setPasswd("1111");
+		user.setGender(1);
+		userService.save(user);
 	}
 }

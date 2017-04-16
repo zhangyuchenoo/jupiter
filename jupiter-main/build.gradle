@@ -1,1 +1,12 @@
 apply plugin: 'java'
+
+repositories {
+	maven { url crawlerRep }
+	jcenter()
+}
+
+
+dependencies{
+	//compile project(":jupiter-domain")
+ 	compile project(":jupiter-service")
+}
