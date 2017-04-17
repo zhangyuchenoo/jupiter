@@ -5,7 +5,6 @@ package com.jupiter.service.config;
 
 import javax.sql.DataSource;
 
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -29,7 +28,7 @@ public class MybatisConfig {
 	}
 
 	// @Bean
-	public SqlSessionFactory sqlSessionFactoryBean() {
-		return null;
-	}
+//	public SqlSessionFactory sqlSessionFactoryBean() {
+//		return null;
+//	}
 }

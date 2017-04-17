@@ -4,7 +4,9 @@
 package com.jupiter.service.config;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -26,6 +28,11 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.dangdang.ddframe.rdb.sharding.api.ShardingDataSourceFactory;
+import com.dangdang.ddframe.rdb.sharding.api.rule.DataSourceRule;
+import com.dangdang.ddframe.rdb.sharding.api.rule.ShardingRule;
+import com.dangdang.ddframe.rdb.sharding.api.rule.TableRule;
+import com.dangdang.ddframe.rdb.sharding.api.strategy.table.TableShardingStrategy;
 
 /**
  * @author zheng.zhang
@@ -42,6 +49,7 @@ public class JupiterDataSourceConfig {
 	@Autowired
 	private JupiterDataSourceProperties properties;
 	private static final Logger log = LoggerFactory.getLogger(JupiterDataSourceConfig.class);
+	private static final String DATA_SOURCE_KEY = "dataSource";
 
 	@Bean(name = "druidDatasource")
 	public DruidDataSource getDatasource() {
@@ -76,6 +84,23 @@ public class JupiterDataSourceConfig {
 		return dataSource;
 	}
 
+	@Bean(name = "shardingDatasource")
+	public DataSource shardingDatasource(DruidDataSource druidDatasource,
+			TableShardingStrategy userTableShardingStrategy) {
+		HashMap<String, DataSource> dataSourceMap = new HashMap<String, DataSource>();
+		dataSourceMap.put(DATA_SOURCE_KEY, druidDatasource);
+		DataSourceRule dataSourceRule = new DataSourceRule(dataSourceMap);
+
+		List<TableRule> tableRules = new ArrayList<>();
+		TableRule userTableUser = TableRule.builder("j_user").dynamic(true)
+				.tableShardingStrategy(userTableShardingStrategy).dataSourceRule(dataSourceRule).build();
+		tableRules.add(userTableUser);
+
+		ShardingRule shardingRule = ShardingRule.builder().dataSourceRule(dataSourceRule).tableRules(tableRules)
+				.build();
+		return ShardingDataSourceFactory.createDataSource(shardingRule);
+	}
+
 	@Bean
 	public JpaVendorAdapter hibernateJpaVendorAdapter() {
 		HibernateJpaVendorAdapter jp = new HibernateJpaVendorAdapter();
@@ -85,13 +110,15 @@ public class JupiterDataSourceConfig {
 	}
 
 	@Bean(name = "entityManagerFactory")
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder,
-			DataSource druidDatasource, JpaVendorAdapter hibernateJpaVendorAdapter) {
-		Map<String, Object> property = new HashMap<String, Object>();
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource shardingDatasource,
+			JpaVendorAdapter hibernateJpaVendorAdapter) {
+		Map<String, Object> property = new HashMap<>();
 		property.put("open-in-view", false);
 		property.put("hibernate.naming_strategy", properties.getNaming_strategy());
 		property.put("hibernate.show_sql", properties.isShowSql());
-		LocalContainerEntityManagerFactoryBean lcemf = builder.dataSource(druidDatasource).properties(property)
+		EntityManagerFactoryBuilder builder = new EntityManagerFactoryBuilder(hibernateJpaVendorAdapter(), property,
+				null);
+		LocalContainerEntityManagerFactoryBean lcemf = builder.dataSource(shardingDatasource).properties(property)
 				.packages("com.jupiter.model").persistenceUnit("spring-data-jpa").build();
 		lcemf.setJpaVendorAdapter(hibernateJpaVendorAdapter);
 		return lcemf;
@@ -100,5 +127,10 @@ public class JupiterDataSourceConfig {
 	@Bean(name = "transactionManager")
 	public JpaTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactory) {
 		return new JpaTransactionManager(entityManagerFactory.getObject());
+	}
+
+	@Bean
+	public TableShardingStrategy jUserTableShardingStrategy() {
+		return new TableShardingStrategy("id", new JUserTableShardingStrategy());
 	}
 }

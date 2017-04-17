@@ -7,3 +7,4 @@ jupiter-main/bin/
 jupiter-service/bin/
 */build/
 /.gradle/
+jupiter-domain/bin

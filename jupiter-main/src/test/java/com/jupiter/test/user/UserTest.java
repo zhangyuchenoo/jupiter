@@ -33,7 +33,7 @@ public class UserTest extends BaseTestCase {
 	@Test
 	public void testSave(){
 		JUser user=new JUser();
-		//user.setId(1l);
+		user.setId(2l);
 		user.setName("first");
 		user.setPasswd("1111");
 		user.setGender(1);
