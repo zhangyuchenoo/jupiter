@@ -17,7 +17,7 @@ jupiter:
   datasource: 
     ##druid
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/jupiter?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
+    url: jdbc:mysql://192.168.99.1:3306/jupiter?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
     type: com.alibaba.druid.pool.DruidDataSource
     username: root
     password: 123456

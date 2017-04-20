@@ -33,6 +33,8 @@ import com.dangdang.ddframe.rdb.sharding.api.rule.DataSourceRule;
 import com.dangdang.ddframe.rdb.sharding.api.rule.ShardingRule;
 import com.dangdang.ddframe.rdb.sharding.api.rule.TableRule;
 import com.dangdang.ddframe.rdb.sharding.api.strategy.table.TableShardingStrategy;
+import com.dangdang.ddframe.rdb.sharding.router.strategy.NoneKeyShardingAlgorithm;
+import com.jupiter.model.JUser;
 
 /**
  * @author zheng.zhang
@@ -86,15 +88,19 @@ public class JupiterDataSourceConfig {
 
 	@Bean(name = "shardingDatasource")
 	public DataSource shardingDatasource(DruidDataSource druidDatasource,
-			TableShardingStrategy userTableShardingStrategy) {
+			TableShardingStrategy userTableShardingStrategy, TableShardingStrategy jUserTableNonkeyShardingStrategy) {
 		HashMap<String, DataSource> dataSourceMap = new HashMap<String, DataSource>();
 		dataSourceMap.put(DATA_SOURCE_KEY, druidDatasource);
 		DataSourceRule dataSourceRule = new DataSourceRule(dataSourceMap);
 
 		List<TableRule> tableRules = new ArrayList<>();
-		TableRule userTableUser = TableRule.builder("j_user").dynamic(true)
+		TableRule userTableRule = TableRule.builder("j_user").dynamic(true)
 				.tableShardingStrategy(userTableShardingStrategy).dataSourceRule(dataSourceRule).build();
-		tableRules.add(userTableUser);
+		TableRule userTableNullKeyTableRule = TableRule.builder("j_user").dynamic(true).dataSourceRule(dataSourceRule)
+				.tableShardingStrategy(jUserTableNonkeyShardingStrategy).build();
+		// TableRule.add
+		tableRules.add(userTableNullKeyTableRule);
+		tableRules.add(userTableRule);
 
 		ShardingRule shardingRule = ShardingRule.builder().dataSourceRule(dataSourceRule).tableRules(tableRules)
 				.build();
@@ -129,8 +135,13 @@ public class JupiterDataSourceConfig {
 		return new JpaTransactionManager(entityManagerFactory.getObject());
 	}
 
-	@Bean
+	@Bean(name = "userTableShardingStrategy")
 	public TableShardingStrategy jUserTableShardingStrategy() {
 		return new TableShardingStrategy("id", new JUserTableShardingStrategy());
+	}
+
+	@Bean(name = "jUserTableNonkeyShardingStrategy")
+	public NoneKeyShardingAlgorithm<Comparable<JUser>> jUserTableNonkeyShardingStrategy() {
+		return new JUserTableNonkeyShardingStrategy();
 	}
 }

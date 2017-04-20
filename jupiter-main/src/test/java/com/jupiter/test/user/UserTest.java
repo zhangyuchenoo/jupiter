@@ -3,12 +3,14 @@
  */
 package com.jupiter.test.user;
 
+import java.util.Random;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jupiter.model.JUser;
 import com.jupiter.service.UserService;
-import com.jupiter.service.config.Configure;
 import com.jupiter.test.BaseTestCase;
 
 /**
@@ -18,25 +20,32 @@ import com.jupiter.test.BaseTestCase;
  */
 public class UserTest extends BaseTestCase {
 
-	//@Autowired
-	//private Configure configure;
+	// @Autowired
+	// private Configure configure;
 	@Autowired
 	private UserService userService;
 
+	private Random random = new Random();
+
+	@Before
+	public void init() {
+		random = new Random();
+	}
+
 	@Test
 	public void testConfigure() {
-		/*configure.getfooNames().forEach(word -> {
-			System.err.println(word);
-		});*/
+		/*
+		 * configure.getfooNames().forEach(word -> { System.err.println(word);
+		 * });
+		 */
 	}
-	
+
 	@Test
-	public void testSave(){
-		JUser user=new JUser();
-		user.setId(2l);
-		user.setName("first");
-		user.setPasswd("1111");
-		user.setGender(1);
+	public void testSave() {
+		JUser user = new JUser();
+		user.setName("user");
+		user.setPasswd("passwd");
+		user.setGender(random.nextInt(1));
 		userService.save(user);
 	}
 }
