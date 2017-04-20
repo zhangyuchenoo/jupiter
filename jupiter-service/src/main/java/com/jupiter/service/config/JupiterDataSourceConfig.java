@@ -5,6 +5,7 @@ package com.jupiter.service.config;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +34,6 @@ import com.dangdang.ddframe.rdb.sharding.api.rule.DataSourceRule;
 import com.dangdang.ddframe.rdb.sharding.api.rule.ShardingRule;
 import com.dangdang.ddframe.rdb.sharding.api.rule.TableRule;
 import com.dangdang.ddframe.rdb.sharding.api.strategy.table.TableShardingStrategy;
-import com.dangdang.ddframe.rdb.sharding.router.strategy.NoneKeyShardingAlgorithm;
-import com.jupiter.model.JUser;
 
 /**
  * @author zheng.zhang
@@ -96,9 +95,12 @@ public class JupiterDataSourceConfig {
 		List<TableRule> tableRules = new ArrayList<>();
 		TableRule userTableRule = TableRule.builder("j_user").dynamic(true)
 				.tableShardingStrategy(userTableShardingStrategy).dataSourceRule(dataSourceRule).build();
-		TableRule userTableNullKeyTableRule = TableRule.builder("j_user").dynamic(true).dataSourceRule(dataSourceRule)
-				.tableShardingStrategy(jUserTableNonkeyShardingStrategy).build();
-		// TableRule.add
+		List<String> actualTables = new ArrayList<>();
+		actualTables.add("j_user_0");
+		actualTables.add("j_user_1");
+		TableRule userTableNullKeyTableRule = TableRule.builder("j_user").dynamic(false).actualTables(actualTables)
+				.dataSourceRule(dataSourceRule).tableShardingStrategy(jUserTableNonkeyShardingStrategy).build();
+
 		tableRules.add(userTableNullKeyTableRule);
 		tableRules.add(userTableRule);
 
@@ -116,7 +118,7 @@ public class JupiterDataSourceConfig {
 	}
 
 	@Bean(name = "entityManagerFactory")
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource shardingDatasource,
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource druidDatasource,
 			JpaVendorAdapter hibernateJpaVendorAdapter) {
 		Map<String, Object> property = new HashMap<>();
 		property.put("open-in-view", false);
@@ -124,7 +126,7 @@ public class JupiterDataSourceConfig {
 		property.put("hibernate.show_sql", properties.isShowSql());
 		EntityManagerFactoryBuilder builder = new EntityManagerFactoryBuilder(hibernateJpaVendorAdapter(), property,
 				null);
-		LocalContainerEntityManagerFactoryBean lcemf = builder.dataSource(shardingDatasource).properties(property)
+		LocalContainerEntityManagerFactoryBean lcemf = builder.dataSource(druidDatasource).properties(property)
 				.packages("com.jupiter.model").persistenceUnit("spring-data-jpa").build();
 		lcemf.setJpaVendorAdapter(hibernateJpaVendorAdapter);
 		return lcemf;
@@ -141,7 +143,8 @@ public class JupiterDataSourceConfig {
 	}
 
 	@Bean(name = "jUserTableNonkeyShardingStrategy")
-	public NoneKeyShardingAlgorithm<Comparable<JUser>> jUserTableNonkeyShardingStrategy() {
-		return new JUserTableNonkeyShardingStrategy();
+	public TableShardingStrategy jUserTableNonkeyShardingStrategy() {
+		return new TableShardingStrategy(Arrays.asList(new String[] { "username", "passwd" }),
+				new JUserTableNonkeyShardingStrategy());
 	}
 }
