@@ -87,7 +87,5 @@
     </div>
 </template>
 <script>
-    export default {
-        
-    }
+    export default MainLayout
 </script>
