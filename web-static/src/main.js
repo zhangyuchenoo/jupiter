@@ -3,18 +3,14 @@
 import Vue from 'vue'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
-import Main from './Main.vue'
-import MainLayout from './components/MainLayout.vue'
-import Navigate from './components/Navigate.vue'
+import App from './App.vue'
 
 Vue.use(iView)
-Vue.use(Main)
-Vue.use(Navigate)
-Vue.use(MainLayout)
+Vue.use(App)
 
-var aa = new Vue({
+new Vue({
   el: '#app',
-  data: {message: 'hello22'},
-  components: {MainLayout}
+  render: h=>h(App),
+  components: {App}
 })
 
