@@ -86,9 +86,18 @@
             };
         },
         created:function(){
-           this.$ajax.get('/login/menu').then((response) => {
-              this.rows.items=response.data;
+        
+            this.$ajax.get('/login/info').then((response)=>{
+                if('ok'!=response.data){
+                    console.log('-------');
+                    //显示登录对话框
+                }
+                console.log(response);
             });
+            
+          /* this.$ajax.get('/login/menu').then((response) => {
+              this.rows.items=response.data;
+            });*/
         }
     }
 </script>

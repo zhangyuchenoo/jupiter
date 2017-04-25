@@ -11,11 +11,13 @@
     <div>
         <div><Logo/></div>
         <div><MainLayout/></div>
+        <div><Login/></div>
     </div>
 </template>
 
 <script>
 import MainLayout from './components/MainLayout.vue'
+import Login from './components/Login.vue'
 import Logo from './components/Logo.vue'
     export default {
         data () {
@@ -23,6 +25,6 @@ import Logo from './components/Logo.vue'
                 theme3: 'light'
             }
         },
-        components: {Logo,MainLayout}
+        components: {Logo,MainLayout,Login}
     }
 </script>

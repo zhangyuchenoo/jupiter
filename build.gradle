@@ -56,10 +56,11 @@ configure(subprojects.findAll { it.name.startsWith('jupiter-')}) {
 		compile('org.springframework.boot:spring-boot-starter-cache')
 		compile('org.springframework.boot:spring-boot-starter-data-jpa')
 		//compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.1')
-		//compile('org.springframework.boot:spring-boot-starter-security')
+		compile('org.springframework.boot:spring-boot-starter-security')
 		compile('org.springframework.boot:spring-boot-starter-web')
+		compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 		compile('org.springframework.boot:spring-boot-starter-actuator')
-		compileOnly('org.projectlombok:lombok')
+		compile('org.projectlombok:lombok')
 		compile 'org.mybatis.generator:mybatis-generator-core:1.3.2'
 		compile "mysql:mysql-connector-java:${mysql_version}"
 		compile "com.alibaba:druid:${alibaba_druid_version}"

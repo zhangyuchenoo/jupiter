@@ -6,6 +6,9 @@ package com.jupiter.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +38,12 @@ public class LoginController {
 	UserService userService;
 
 	@RequestMapping("/login")
-	public BaseResult<LoginResult> login(JUserVO userVO) {
+	public String LoginController() {
+		return "login";
+	}
+
+	@RequestMapping("/doLogin")
+	public BaseResult<LoginResult> doLogin(JUserVO userVO) {
 		try {
 			userService.login(userVO);
 		} catch (BizException e) {
@@ -52,5 +60,19 @@ public class LoginController {
 		menu.add(new MenuVo("menu2", ""));
 		menu.add(new MenuVo("menu3", ""));
 		return menu;
+	}
+
+	@RequestMapping("/info")
+	@ResponseBody
+	public String logInfo(HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("token")) {
+				return "ok";
+			}
+		}
+
+		return null;
+
 	}
 }
