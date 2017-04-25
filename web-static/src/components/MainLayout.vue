@@ -97,8 +97,9 @@
             return {};
         },
         created:function(){
-           var resource = this.$resource('/login');
-           resource.get();
+           this.$ajax.get('/login/menu').then((response) => {
+              console.log(response.data)
+            });
         }
     }
 </script>

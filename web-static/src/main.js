@@ -3,13 +3,16 @@
 import Vue from 'vue'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+import axios from 'axios'
 import Main from './Main.vue'
 
 Vue.use(iView)
 Vue.use(Main)
+Vue.use(axios)
 
+Vue.prototype.$ajax = axios;
 new Vue({
   el: '#app',
   render: h=>h(Main)
-})
+});
 

@@ -83,6 +83,8 @@ devMiddleware.waitUntilValid(() => {
 
 var server = app.listen(port)
 
+app.use('/', proxyMiddleware('http://localhost:6082/'));
+  
 module.exports = {
   ready: readyPromise,
   close: () => {

@@ -9,8 +9,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jupiter.BaseResult;
 import com.jupiter.service.BizException;
@@ -23,7 +24,8 @@ import com.jupiter.vo.LoginResult;
  * 
  *         2017年4月19日
  */
-@RestController("/login")
+@Controller
+@RequestMapping("/login")
 public class LoginController {
 
 	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
@@ -41,6 +43,8 @@ public class LoginController {
 		return new BaseResult();
 	}
 
+	@RequestMapping("/menu")
+	@ResponseBody
 	public Map<String, String> fakeMenuList() {
 		Map<String, String> menu = new LinkedHashMap<>();
 		menu.put("menu1", "");
