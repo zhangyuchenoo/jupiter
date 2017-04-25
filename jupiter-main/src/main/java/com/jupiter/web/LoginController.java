@@ -3,8 +3,8 @@
  */
 package com.jupiter.web;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +18,7 @@ import com.jupiter.service.BizException;
 import com.jupiter.service.UserService;
 import com.jupiter.vo.JUserVO;
 import com.jupiter.vo.LoginResult;
+import com.jupiter.vo.MenuVo;
 
 /**
  * @author zheng.zhang
@@ -45,11 +46,11 @@ public class LoginController {
 
 	@RequestMapping("/menu")
 	@ResponseBody
-	public Map<String, String> fakeMenuList() {
-		Map<String, String> menu = new LinkedHashMap<>();
-		menu.put("menu1", "");
-		menu.put("menu2", "");
-		menu.put("menu3", "");
+	public List<MenuVo> fakeMenuList() {
+		List<MenuVo> menu = new ArrayList<>();
+		menu.add(new MenuVo("menu1", ""));
+		menu.add(new MenuVo("menu2", ""));
+		menu.add(new MenuVo("menu3", ""));
 		return menu;
 	}
 }
