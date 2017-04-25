@@ -9,7 +9,7 @@
 
 <template>
     <div>
-        <div class="layout"><Logo/></div>
+        <div><Logo/></div>
         <div><MainLayout/></div>
     </div>
 </template>

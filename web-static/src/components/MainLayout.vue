@@ -91,11 +91,14 @@
     </div>
 </template>
 <script>
+    import VueResource from 'vue-resource'
     export default {
-        data(){
-            return {
-                 theme1: 'light'
-            }
+        data:function(){
+            return {};
+        },
+        created:function(){
+           var resource = this.$resource('/login');
+           resource.get();
         }
     }
 </script>
