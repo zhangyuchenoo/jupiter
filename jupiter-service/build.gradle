@@ -8,5 +8,6 @@ repositories {
 
 dependencies{
 	compile "edu.uci.ics:crawler4j:4.4-SNAPSHOT"
+	compile "org.springframework.boot:spring-boot-starter-data-mongodb"
 	compile project(":jupiter-domain")
 }
