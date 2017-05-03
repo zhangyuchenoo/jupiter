@@ -1,18 +1,22 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import App from './App'
+import router from './router'
+import VueMarkdown from 'vue-markdown'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
-import axios from 'axios'
-import Main from './Main.vue'
+import VueQuillEditor from 'vue-quill-editor'
+import IEcharts from 'vue-echarts-v3';
 
 Vue.use(iView)
-Vue.use(Main)
-Vue.use(axios)
+Vue.use(VueMarkdown)
+Vue.use(IEcharts)
 
-Vue.prototype.$ajax = axios;
+Vue.config.productionTip = false
+
 new Vue({
-  el: '#app',
-  render: h=>h(Main)
-});
-
+    el: '#app',
+    router,
+    VueMarkdown,
+    template: '<App/>',
+    components: { App }
+})

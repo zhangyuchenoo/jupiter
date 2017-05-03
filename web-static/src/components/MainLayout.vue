@@ -44,15 +44,21 @@
             <i-col span="5" class="layout-menu-left">
                 <Menu active-name="1-2" theme="dark" width="auto" :open-names="['1']">
                     <div class="layout-logo-left"></div>
-                    <div v-for="(item, index) in rows.items">
-                        <Submenu :key="item" :label="'items.' + index + '.name'" 
-                            :prop="'items.' + index + '.name'" name="'items.' + index + '.name'">    
-                            <template slot="title">
-                                 <Icon type="ios-navigate"></Icon>导航一
-                                 <Menu-item name="1-1">选项 1</Menu-item>
-                            </template>
-                        </Submenu>
-                    </div> 
+                    <Submenu :key="item" :label="'items.' + index + '.name'" 
+                        :prop="'items.' + index + '.name'" name="'items.' + index + '.name'">    
+                        <template slot="title">
+                             <Icon type="ios-navigate"></Icon>公告法规检索
+                        </template>
+                        <Menu-item name="1-1" >分类1</Menu-item>
+                    </Submenu>
+                    <Submenu :key="item" :label="'items.' + index + '.name'" 
+                        :prop="'items.' + index + '.name'" name="'items.' + index + '.name'">    
+                        <template slot="title">
+                             <Icon type="ios-navigate"></Icon>信息披露检索
+                        </template>
+                        <Menu-item name="2-1" on-select="test">分类2</Menu-item>
+                    </Submenu>
+                  
                 </Menu>
             </i-col>
             <i-col span="19">
@@ -64,7 +70,7 @@
                         <Breadcrumb-item>某应用</Breadcrumb-item>
                     </Breadcrumb>
                 </div>
-                <div class="layout-content">
+                <div class="layout-content" id="main_content">
                     <div class="layout-content-main">内容区域</div>
                 </div>
                 <div class="layout-copy">
@@ -75,29 +81,42 @@
     </div>
 </template>
 <script>
-    import VueResource from 'vue-resource'
-    export default {
-        data:function(){
-            return {
-                rows:{items:[{
-                    name:'menu',
-                    path:'/'
-                }]}
-            };
-        },
-        created:function(){
-        
-            this.$ajax.get('/login/info').then((response)=>{
-                if('ok'!=response.data){
-                    console.log('-------');
-                    //显示登录对话框
-                }
-                console.log(response);
-            });
-            
-          /* this.$ajax.get('/login/menu').then((response) => {
-              this.rows.items=response.data;
-            });*/
-        }
+import VueResource from 'vue-resource'
+export default {
+    data:function(){
+        return {
+            rows:{items:[{
+                name:'menu',
+                path:'/'
+            }]}
+        };
+    },
+    created:function(){
+    
+        this.$ajax.get('/login/info').then((response)=>{
+            if('ok'!=response.data){
+                console.log('-------');
+                //显示登录对话框
+            }
+            console.log(response);
+        });
     }
+}
+    
+    
+const NotFound = { template: '<p>Page not found</p>' }
+const Home = { template: '<p>home page</p>' }
+const About = { template: '<p>about page</p>' }
+const routes = {
+  '/': Home,
+  '/about': About
+}
+
+function test(){
+    new Vue({
+        el:'#main_content',
+        render: h=>h(routes['/'])
+    });
+}
+
 </script>

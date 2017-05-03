@@ -11,7 +11,6 @@
     <div>
         <div><Logo/></div>
         <div><MainLayout/></div>
-        <div><Login/></div>
     </div>
 </template>
 
