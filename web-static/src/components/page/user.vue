@@ -12,7 +12,7 @@ import ModalForm from '../common/ModalForm.vue'
     export default {
         data () {
             return {
-                self: this,,
+                self: this,
                 cols:[{
                     label:'姓名',
                     placeholder:'请输入姓名',
