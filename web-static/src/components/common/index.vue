@@ -73,44 +73,12 @@
 <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
     <Row type="flex">
         <i-col :span="spanLeft" class="layout-menu-left">
-            <Menu :active-name="setActive" theme="dark" width="auto" @on-select="routeTo">
-                <div class="layout-logo-left">
+            <Menu :active-name="setActive" theme="light" width="auto" @on-select="routeTo">
+                <div class="layout-logo-left" >
                     <h3>后台管理</h3></div>
-                <Menu-item name="about">
+                <Menu-item name="user">
                     <Icon type="ios-navigate" :size="iconSize"></Icon>
-                    <span class="layout-text">关于</span>
-                </Menu-item>
-                <Menu-item name="form">
-                    <Icon type="document" :size="iconSize"></Icon>
-                    <span class="layout-text">表单</span>
-                </Menu-item>
-                <Menu-item name="table">
-                    <Icon type="navicon" :size="iconSize"></Icon>
-                    <span class="layout-text">表格</span>
-                </Menu-item>
-                <Menu-item name="markdown-viewer">
-                    <Icon type="social-markdown" :size="iconSize"></Icon>
-                    <span class="layout-text">Markdown</span>
-                </Menu-item>
-                <Menu-item name="markdown-editor-1">
-                    <Icon type="edit" :size="iconSize"></Icon>
-                    <span class="layout-text">Md编辑器(1)</span>
-                </Menu-item>
-                <Menu-item name="markdown-editor-2">
-                    <Icon type="edit" :size="iconSize"></Icon>
-                    <span class="layout-text">Md编辑器(2)</span>
-                </Menu-item>
-                <Menu-item name="rtf">
-                    <Icon type="document-text" :size="iconSize"></Icon>
-                    <span class="layout-text">富文本框</span>
-                </Menu-item>
-                <Menu-item name="upload">
-                    <Icon type="ios-cloud-upload-outline" :size="iconSize"></Icon>
-                    <span class="layout-text">文件上传</span>
-                </Menu-item>
-                <Menu-item name="echarts">
-                    <Icon type="pie-graph" :size="iconSize"></Icon>
-                    <span class="layout-text">图表(Echarts)</span>
+                    <span class="layout-text">用户</span>
                 </Menu-item>
             </Menu>
         </i-col>

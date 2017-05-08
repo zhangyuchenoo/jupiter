@@ -44,6 +44,9 @@ export default new Router({
                 },{
                     path: '/echarts',
                     component: resolve => require(['../components/page/echarts.vue'], resolve)
+                },{
+                    path: '/user',
+                    component: resolve => require(['../components/page/user.vue'], resolve)
                 }
             ]
         },
