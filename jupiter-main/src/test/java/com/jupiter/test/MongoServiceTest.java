@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jupiter.model.MongoObj;
-import com.jupiter.service.MongoService;
+import com.jupiter.service.mongo.MongoService;
 
 /**
  * @author zheng.zhang

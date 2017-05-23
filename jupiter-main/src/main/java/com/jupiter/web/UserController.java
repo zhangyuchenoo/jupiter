@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jupiter.model.JUser;
-import com.jupiter.service.UserService;
+import com.jupiter.service.user.UserService;
 import com.jupiter.vo.JUserVO;
 
 /**

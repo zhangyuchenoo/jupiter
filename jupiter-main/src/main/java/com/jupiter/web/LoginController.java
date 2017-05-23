@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jupiter.BaseResult;
 import com.jupiter.service.BizException;
-import com.jupiter.service.UserService;
+import com.jupiter.service.login.LoginService;
 import com.jupiter.vo.JUserVO;
 import com.jupiter.vo.LoginResult;
 import com.jupiter.vo.MenuVo;
@@ -35,17 +35,12 @@ public class LoginController {
 	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
-	UserService userService;
-
-	@RequestMapping("/login")
-	public String LoginController() {
-		return "login";
-	}
+	LoginService loginService;
 
 	@RequestMapping("/doLogin")
 	public BaseResult<LoginResult> doLogin(JUserVO userVO) {
 		try {
-			userService.login(userVO);
+			loginService.login(userVO);
 		} catch (BizException e) {
 			log.error("用户名或密码错误");
 		}
@@ -72,7 +67,7 @@ public class LoginController {
 			}
 		}
 
-		return null;
+		return null;	
 
 	}
 }

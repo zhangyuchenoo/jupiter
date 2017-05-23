@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jupiter.model.JUser;
-import com.jupiter.service.UserService;
+import com.jupiter.service.user.UserService;
 import com.jupiter.test.BaseTestCase;
 
 /**

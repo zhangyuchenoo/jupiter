@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.jupiter.service;
+package com.jupiter.service.mongo;
 
 import com.jupiter.model.MongoObj;
 

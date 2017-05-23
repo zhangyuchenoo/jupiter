@@ -1,27 +1,27 @@
-package com.jupiter.service.impl;
-
-import javax.transaction.Transactional;
+/**
+ * 
+ */
+package com.jupiter.service.login.impl;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.jupiter.model.JUser;
 import com.jupiter.repository.UserDao;
 import com.jupiter.service.BizException;
-import com.jupiter.service.UserService;
+import com.jupiter.service.login.LoginService;
 import com.jupiter.service.util.EncDecUtil;
 import com.jupiter.vo.JUserVO;
 
-@Service
-public class UserServiceImpl implements UserService {
+/**
+ * @author zheng.zhang
+ * 
+ *         2017年5月23日
+ */
+public class LoginServiceImpl implements LoginService {
+
 	@Autowired
 	private UserDao userDao;
-
-	@Transactional
-	public void save(JUser user) {
-		userDao.saveAndFlush(user);
-	}
 
 	@Override
 	public void login(JUserVO userVO) throws BizException {

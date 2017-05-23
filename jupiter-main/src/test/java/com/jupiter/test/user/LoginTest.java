@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jupiter.service.BizException;
-import com.jupiter.service.UserService;
+import com.jupiter.service.user.UserService;
 import com.jupiter.test.BaseTestCase;
 import com.jupiter.vo.JUserVO;
 

@@ -1,4 +1,4 @@
-package com.jupiter.service;
+package com.jupiter.service.mongo;
 
 public interface CrawlerService {
 	

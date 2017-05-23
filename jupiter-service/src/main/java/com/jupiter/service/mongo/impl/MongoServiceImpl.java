@@ -1,14 +1,14 @@
 /**
  * 
  */
-package com.jupiter.service.impl;
+package com.jupiter.service.mongo.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.jupiter.model.MongoObj;
-import com.jupiter.service.MongoService;
+import com.jupiter.service.mongo.MongoService;
 
 /**
  * @author zheng.zhang

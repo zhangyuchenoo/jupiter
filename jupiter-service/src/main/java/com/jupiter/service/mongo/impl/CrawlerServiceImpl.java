@@ -1,6 +1,6 @@
-package com.jupiter.service.impl;
+package com.jupiter.service.mongo.impl;
 
-import com.jupiter.service.CrawlerService;
+import com.jupiter.service.mongo.CrawlerService;
 
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 
